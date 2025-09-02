@@ -9,6 +9,8 @@ import java.util.List;
 
 public class BankStatementAnalyzer {
     private static final String RESOURCE = "src/main/resources/";
+
+    /* 특정 파서와 결합 제거
     private static final BankStatementCSVParser bankStatementParser = new BankStatementCSVParser();
 
     public static void main(final String... args) throws IOException {
@@ -17,6 +19,18 @@ public class BankStatementAnalyzer {
         final List<String> lines = Files.readAllLines(path);
 
         final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFromCSV(lines);
+        final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
+
+        collectSummary(bankStatementProcessor);
+    }
+    */
+
+    // 특정 구현 (CSV 파일)에 종속되지 않도록 개선
+    public void analyze(final String fileName, final BankStatementParser bankStatementParser) throws IOException {
+        final Path path = Paths.get(RESOURCE + fileName);
+        final List<String> lines = Files.readAllLines(path);
+
+        final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFrom(lines);
         final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
 
         collectSummary(bankStatementProcessor);
