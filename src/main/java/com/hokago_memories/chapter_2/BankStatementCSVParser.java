@@ -32,6 +32,7 @@ public class BankStatementCSVParser implements BankStatementParser{
     }
     */
 
+    // 인터페이스 구현 (오버라이드)
     @Override
     public BankTransaction parseFrom(String line) {
         final String[] columns = line.split(",");
