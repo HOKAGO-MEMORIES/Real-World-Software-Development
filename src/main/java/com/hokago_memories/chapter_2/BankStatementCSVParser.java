@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // CSV 파싱 로직을 BankStatementCSVParser에 분리
-public class BankStatementCSVParser {
+public class BankStatementCSVParser implements BankStatementParser{
     private static final DateTimeFormatter DATE_PATTERN
             = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -29,5 +29,15 @@ public class BankStatementCSVParser {
             bankTransactions.add(parseFromCSV(line));
         }
         return bankTransactions;
+    }
+
+    @Override
+    public BankTransaction parseFrom(String line) {
+        return null;
+    }
+
+    @Override
+    public List<BankTransaction> parseLinesFrom(List<String> lines) {
+        return List.of();
     }
 }
