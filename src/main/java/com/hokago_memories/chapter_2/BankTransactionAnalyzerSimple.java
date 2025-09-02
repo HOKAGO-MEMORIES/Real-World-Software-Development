@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-// KISS 원칙 사용 -> 코드를 한 개의 클래스로 구현
 public class BankTransactionAnalyzerSimple {
     private static final String RESOURCE = "src/main/resources";
 
     public static void main(final String... args) throws IOException {
+        // KISS 원칙 사용 -> 코드를 한 개의 클래스로 구현
         final Path path = Paths.get(RESOURCE + args[0]);
         final List<String> lines = Files.readAllLines(path);
         double total = 0d;
@@ -21,5 +24,20 @@ public class BankTransactionAnalyzerSimple {
         }
 
         System.out.println("The total for all transaction is " + total);
+
+        // 특정 달에 몇 건의 입출금 내역이 있는 확인
+        // 갓 클래스와 코드 중복에 대한 위험성이 있음
+        total = 0d;
+        final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // 날짜 패턴
+        for (final String line : lines) {
+            final String[] columns = line.split(",");
+            final LocalDate date = LocalDate.parse(columns[0],DATE_PATTERN);
+            if(date.getMonth() == Month.JANUARY) {
+                final double amount = Double.parseDouble(columns[1]);
+                total += amount;
+            }
+        }
+
+        System.out.println("The total for all transaction in January is " + total);
     }
 }
