@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BankTransactionAnalyzerSimple {
-    private static final String RESOURCE = "src/main/resources";
+    private static final String RESOURCE = "src/main/resources/";
 
     public static void main(final String... args) throws IOException {
         // 1. KISS 원칙 사용 -> 코드를 한 개의 클래스로 구현
