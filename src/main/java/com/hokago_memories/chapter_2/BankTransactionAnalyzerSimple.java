@@ -45,8 +45,8 @@ public class BankTransactionAnalyzerSimple {
         // 3. 입출금 내역 CSV 파서를 사용하여 기존 코드 리팩토링
         final BankStatementCSVParser bankStatementCSVParser = new BankStatementCSVParser();
 
-        final List<BankTransaction> bankTransactions
-                = bankStatementCSVParser.parseLinesFromCSV(lines);
+        // final List<BankTransaction> bankTransactions = bankStatementCSVParser.parseLinesFromCSV(lines);
+        final List<BankTransaction> bankTransactions = bankStatementCSVParser.parseLinesFrom(lines);
 
         System.out.println("The total for all transaction is " + calculateTotalAmount(bankTransactions));
         System.out.println("Transaction in January " + selectInMonth(bankTransactions, Month.JANUARY));
