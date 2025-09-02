@@ -14,7 +14,7 @@ public class BankTransactionAnalyzerSimple {
     private static final String RESOURCE = "src/main/resources";
 
     public static void main(final String... args) throws IOException {
-        // KISS 원칙 사용 -> 코드를 한 개의 클래스로 구현
+        // 1. KISS 원칙 사용 -> 코드를 한 개의 클래스로 구현
         final Path path = Paths.get(RESOURCE + args[0]);
         final List<String> lines = Files.readAllLines(path);
         double total = 0d;
@@ -26,7 +26,7 @@ public class BankTransactionAnalyzerSimple {
 
         System.out.println("The total for all transaction is " + total);
 
-        // 특정 달에 몇 건의 입출금 내역이 있는 확인 (위의 코드 복사하여 사용)
+        // 2. 특정 달에 몇 건의 입출금 내역이 있는 확인 (위의 코드 복사하여 사용)
         // 갓 클래스와 코드 중복에 대한 위험성이 있음
         total = 0d;
         final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // 날짜 패턴
@@ -42,7 +42,7 @@ public class BankTransactionAnalyzerSimple {
         System.out.println("The total for all transaction in January is " + total);
 
         
-        // 입출금 내역 CSV 파서 사용하기
+        // 3. 입출금 내역 CSV 파서를 사용하여 기존 코드 리팩토링
         final BankStatementCSVParser bankStatementCSVParser = new BankStatementCSVParser();
 
         final List<BankTransaction> bankTransactions
