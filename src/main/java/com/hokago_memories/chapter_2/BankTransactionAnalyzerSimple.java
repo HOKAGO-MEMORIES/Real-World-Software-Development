@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankTransactionAnalyzerSimple {
@@ -25,7 +26,7 @@ public class BankTransactionAnalyzerSimple {
 
         System.out.println("The total for all transaction is " + total);
 
-        // 특정 달에 몇 건의 입출금 내역이 있는 확인
+        // 특정 달에 몇 건의 입출금 내역이 있는 확인 (위의 코드 복사하여 사용)
         // 갓 클래스와 코드 중복에 대한 위험성이 있음
         total = 0d;
         final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // 날짜 패턴
@@ -39,5 +40,37 @@ public class BankTransactionAnalyzerSimple {
         }
 
         System.out.println("The total for all transaction in January is " + total);
+
+        
+        // 입출금 내역 CSV 파서 사용하기
+        final BankStatementCSVParser bankStatementCSVParser = new BankStatementCSVParser();
+
+        final List<BankTransaction> bankTransactions
+                = bankStatementCSVParser.parseLinesFromCSV(lines);
+
+        System.out.println("The total for all transaction is " + calculateTotalAmount(bankTransactions));
+        System.out.println("Transaction in January " + selectInMonth(bankTransactions, Month.JANUARY));
     }
+
+
+    // 입출금 내역 목록 처리 메소드들
+    public static double calculateTotalAmount(final List<BankTransaction> bankTransactions) {
+        double total = 0d;
+        for (final BankTransaction bankTransaction: bankTransactions) {
+            total += bankTransaction.getAmount();
+        }
+        return total;
+    }
+
+    public static List<BankTransaction> selectInMonth(final List<BankTransaction> bankTransactions, final Month month) {
+        final List<BankTransaction> bankTransactionsInMonth = new ArrayList<>();
+        for (final BankTransaction bankTransaction: bankTransactions) {
+            if (bankTransaction.getDate().getMonth() == month) {
+                bankTransactionsInMonth.add(bankTransaction);
+            }
+        }
+        return bankTransactionsInMonth;
+    }
+
+
 }
