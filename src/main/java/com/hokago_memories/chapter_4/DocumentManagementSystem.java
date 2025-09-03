@@ -1,5 +1,7 @@
 package com.hokago_memories.chapter_4;
 
+import static java.util.Collections.unmodifiableList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,9 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DocumentManagementSystem {
     private final List<Document> documents = new ArrayList<>();
+    private final List<Document> documentsView = unmodifiableList(documents);
     private final Map<String, Importer> extensionToImporter = new HashMap<>();
 
     // Importer 클래스로 파일을 임포트 하기 위해 클래스 등록
@@ -49,5 +53,15 @@ public class DocumentManagementSystem {
         } else {
             throw new UnknownFileTypeException("No extension found For file: " + path);
         }
+    }
+
+    public List<Document> contents() {
+        return documentsView;
+    }
+
+    public List<Document> search(final String query) {
+        return documents.stream()
+                .filter(Query.parse(query))
+                .collect(Collectors.toList());
     }
 }
