@@ -19,6 +19,11 @@ public class DocumentManagementSystem {
         extensionToImporter.put("jpg", new ImageImporter());
     }
 
+    // 문서 추가
+    {
+        extensionToImporter.put("invoice", new InvoiceImporter());
+    }
+
     // Importer를 실행하기 전에 검증하는 메서드
     // 하위 형식에서(Importer 안에서) 선행 조건을 더하지 못하기에 이곳에서 조건을 검 (리스코프 치환 원칙)
     public void importFile(final String path) throws IOException {
