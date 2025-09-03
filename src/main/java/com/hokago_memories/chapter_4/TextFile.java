@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 // 도메인 클래스로 텍스트 파일 모델링
 class TextFile {
@@ -25,11 +26,32 @@ class TextFile {
         return attributes;
     }
 
-    int addLines() {
+    int addLines(
+            final int start,
+            final Predicate<String> isEnd,
+            final String attributeName) {
 
+        final StringBuilder accumulator = new StringBuilder();
+        int lineNumber;
+        for (lineNumber = start; lineNumber < lines.size(); lineNumber++) {
+            final String line = lines.get(lineNumber);
+            if (isEnd.test(line)) {
+                break;
+            }
+
+            accumulator.append(line);
+            accumulator.append("\n");
+        }
+        attributes.put(attributeName, accumulator.toString().trim());
+        return lineNumber;
     }
 
     void addLineSuffix(final String prefix, final String attributeName) {
-
+        for(final String line: lines) {
+            if (line.startsWith(prefix)) {
+                attributes.put(attributeName, line.substring(prefix.length()));
+                break;
+            }
+        }
     }
 }
