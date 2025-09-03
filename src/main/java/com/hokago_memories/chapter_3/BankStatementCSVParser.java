@@ -1,4 +1,4 @@
-package com.hokago_memories.chapter_2;
+package com.hokago_memories.chapter_3;
 
 import static java.util.stream.Collectors.toList;
 
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 // CSV 파싱 로직을 BankStatementCSVParser에 분리
-public class BankStatementCSVParser implements BankStatementParser{
+public class BankStatementCSVParser implements BankStatementParser {
     private static final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     // 인터페이스 구현 (오버라이드)
