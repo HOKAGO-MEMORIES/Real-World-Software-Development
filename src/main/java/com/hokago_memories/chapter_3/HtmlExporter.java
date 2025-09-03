@@ -1,6 +1,6 @@
 package com.hokago_memories.chapter_3;
 
-public class HTMLExporter implements Exporter {
+public class HtmlExporter implements Exporter {
     @Override
     public String export(SummaryStatistics summaryStatistics) {
         String result = "<!doctype html>";

@@ -6,10 +6,11 @@ public class MainApplication {
     public static void main(final String... args) throws IOException {
         final BankStatementAnalyzer bankStatementAnalyzer = new BankStatementAnalyzer();
 
-        // 객체지향의 다형성 활용
         final BankStatementParser bankStatementParser = new BankStatementCSVParser();
 
-        bankStatementAnalyzer.analyze(args[0], bankStatementParser);
+        final Exporter exporter = new HtmlExporter();
+
+        bankStatementAnalyzer.analyze("bank-data-simple.csv", bankStatementParser, exporter);
     }
 
 }
