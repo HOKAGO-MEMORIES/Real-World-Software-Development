@@ -1,5 +1,7 @@
 package com.hokago_memories.chapter_4;
 
+import static com.hokago_memories.chapter_4.Attributes.*;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
