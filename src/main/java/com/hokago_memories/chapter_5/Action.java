@@ -2,5 +2,5 @@ package com.hokago_memories.chapter_5;
 
 @FunctionalInterface
 public interface Action {
-    void perform(Facts facts);
+    void execute(Facts facts);
 }
